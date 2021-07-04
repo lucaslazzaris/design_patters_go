@@ -1,3 +1,3 @@
-module github.com/lucaslazzaris/creational
+module gof
 
 go 1.16
