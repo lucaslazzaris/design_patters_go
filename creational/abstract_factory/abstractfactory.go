@@ -1,7 +1,7 @@
 package main
 
 func main() {
-	mazeFactory := new(MazeFactory)
+	mazeFactory := new(EnchantedMazeFactory)
 	mazeGame := new(MazeGame)
 
 	mazeGame.CreateMaze(mazeFactory)

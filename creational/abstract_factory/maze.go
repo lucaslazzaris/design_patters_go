@@ -1,13 +1,13 @@
 package main
 
 type Maze struct {
-	rooms map[int]*Room
+	rooms map[int]Spacer
 }
 
-func (maze *Maze) addRoom(room *Room) {
-	maze.rooms[room.roomNo] = room
+func (maze *Maze) addRoom(room Spacer) {
+	maze.rooms[room.getRoomNo()] = room
 }
 
-func (maze *Maze) RoomNo(roomNo int) *Room {
+func (maze *Maze) RoomNo(roomNo int) Spacer {
 	return maze.rooms[roomNo]
 }
