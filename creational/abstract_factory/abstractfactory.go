@@ -4,5 +4,10 @@ func main() {
 	mazeFactory := new(EnchantedMazeFactory)
 	mazeGame := new(MazeGame)
 
-	mazeGame.CreateMaze(mazeFactory)
+	mazeGame.createMaze(mazeFactory)
+
+	standardMazeFactory := new(MazeFactory)
+	standardMazeGame := new(MazeGame)
+
+	standardMazeGame.createMaze(standardMazeFactory)
 }

@@ -8,6 +8,6 @@ func (maze *Maze) addRoom(room Spacer) {
 	maze.rooms[room.getRoomNo()] = room
 }
 
-func (maze *Maze) RoomNo(roomNo int) Spacer {
+func (maze *Maze) roomNo(roomNo int) Spacer {
 	return maze.rooms[roomNo]
 }

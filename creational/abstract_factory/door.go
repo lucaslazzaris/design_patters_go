@@ -5,7 +5,7 @@ import (
 )
 
 type Blocker interface {
-	OtherSideRoom(Spacer) (Spacer, error)
+	otherSideRoom(Spacer) (Spacer, error)
 	enter()
 }
 
@@ -15,7 +15,7 @@ type Door struct {
 	isOpen bool
 }
 
-func (door *Door) OtherSideRoom(room Spacer) (Spacer, error) {
+func (door *Door) otherSideRoom(room Spacer) (Spacer, error) {
 	if(room == door.room1){
 		return door.room2, nil
 	} else if (room == door.room2) {
@@ -34,7 +34,7 @@ type DoorNeedingSpell struct {
 	isOpen bool
 }
 
-func (door *DoorNeedingSpell) OtherSideRoom(room Spacer) (Spacer, error) {
+func (door *DoorNeedingSpell) otherSideRoom(room Spacer) (Spacer, error) {
 	if(room == door.room1){
 		return door.room2, nil
 	} else if (room == door.room2) {
