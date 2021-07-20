@@ -38,3 +38,28 @@ func (room *Room) getRoomNo() int {
 func (room *Room) getSides() [4]MapSite {
 	return room.sides
 }
+
+type EnchantedRoom struct {
+	roomNo int
+	sides [4]MapSite
+	spell string
+}
+
+func (room *EnchantedRoom) getSide(direction int) MapSite{
+	return room.sides[direction]
+}
+
+func (room *EnchantedRoom) setSide(direction int, mapSite MapSite){
+	room.sides[direction] = mapSite
+}
+
+func (room *EnchantedRoom) enter() {
+}
+
+func (room *EnchantedRoom) getRoomNo() int {
+	return room.roomNo
+}
+
+func (room *EnchantedRoom) getSides() [4]MapSite{
+	return room.sides
+}
