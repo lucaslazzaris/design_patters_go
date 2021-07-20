@@ -4,5 +4,10 @@ func main() {
 	mazeBuilder := new(CountingMazeBuilder)
 	mazeGame := new(MazeGame)
 
-	mazeGame.CreateMaze(mazeBuilder)
+	mazeGame.createMaze(mazeBuilder)
+
+	standardMazeBuilder := new(StandardMazeBuilder)
+	standardMazeGame := new(MazeGame)
+
+	standardMazeGame.createMaze(standardMazeBuilder)
 }
