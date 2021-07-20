@@ -29,7 +29,13 @@ func (mazeGame MazeGame) createMaze() (*Maze) {
 	r1.setSide(south, mazeGame.makeWall())
 	r1.setSide(west, mazeGame.makeWall())
 
-	fmt.Println(maze.rooms)
+	r2.setSide(north, mazeGame.makeWall())
+	r2.setSide(east, mazeGame.makeWall())
+	r2.setSide(south, mazeGame.makeWall())
+	r2.setSide(west, door)
+
+	fmt.Println(r1.getSides())
+	fmt.Println(r2.getSides())
 	return maze
 }
 
@@ -82,6 +88,13 @@ func (mazeGame EnchantedMazeGame) createMaze() (*Maze) {
 	r1.setSide(south, mazeGame.makeWall())
 	r1.setSide(west, mazeGame.makeWall())
 
+	r2.setSide(north, mazeGame.makeWall())
+	r2.setSide(east, mazeGame.makeWall())
+	r2.setSide(south, mazeGame.makeWall())
+	r2.setSide(west, door)
+
+	fmt.Println(r1.getSides())
+	fmt.Println(r2.getSides())
 	enchantedRoom, ok := r1.(*EnchantedRoom)
 	if (ok) {
 		fmt.Println("Spell:", enchantedRoom.spell)
