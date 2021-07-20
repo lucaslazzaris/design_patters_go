@@ -17,7 +17,7 @@ func (mazeBuilder *StandardMazeBuilder) buildMaze(){
 }
 
 func (mazeBuilder *StandardMazeBuilder) buildRoom(roomNo int){
-	_, ok := mazeBuilder.currentMaze.RoomNo(roomNo)
+	_, ok := mazeBuilder.currentMaze.roomNo(roomNo)
 	if(!ok){
 		newRoom := Room{
 			roomNo: roomNo,
@@ -32,8 +32,8 @@ func (mazeBuilder *StandardMazeBuilder) buildRoom(roomNo int){
 }
 
 func (mazeBuilder *StandardMazeBuilder) buildDoor(roomFrom int, roomTo int){
-	r1, _ := mazeBuilder.currentMaze.RoomNo(roomFrom)
-	r2, _ := mazeBuilder.currentMaze.RoomNo(roomTo)
+	r1, _ := mazeBuilder.currentMaze.roomNo(roomFrom)
+	r2, _ := mazeBuilder.currentMaze.roomNo(roomTo)
 
 	room1 := r1.(*Room);
 	room2 := r2.(*Room);

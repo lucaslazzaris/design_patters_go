@@ -7,7 +7,7 @@ import (
 type MazeGame struct {
 }
 
-func (mazeGame MazeGame) CreateMaze(builder MazeBuilderInterface) (*Maze) {
+func (mazeGame MazeGame) createMaze(builder MazeBuilderInterface) (*Maze) {
 	builder.buildMaze()
 
 	builder.buildRoom(1)
@@ -21,8 +21,14 @@ func (mazeGame MazeGame) CreateMaze(builder MazeBuilderInterface) (*Maze) {
 	builder.buildDoor(3, 4)
 	builder.buildDoor(4, 5)
 
-	fmt.Println(builder.getMaze().rooms)
-	
+	_, ok := builder.(*StandardMazeBuilder) 
+	if (ok){
+		r1, ok1 := builder.getMaze().roomNo(1)
+		r2, ok2 := builder.getMaze().roomNo(2)
+
+		fmt.Println(r1.getSides(), ok1)
+		fmt.Println(r2.getSides(), ok2)
+	}
 
 	counterBuilder, ok := builder.(*CountingMazeBuilder)
 	if (ok) {
