@@ -6,7 +6,9 @@ import (
 
 type Blocker interface {
 	otherSideRoom(Spacer) (Spacer, error)
-	enter()
+	initialize(Spacer, Spacer) 
+	clone() Blocker
+	enter() 
 }
 
 type Door struct {
@@ -28,6 +30,15 @@ func (door *Door) otherSideRoom(room Spacer) (Spacer, error) {
 func (door *Door) enter() {
 }
 
+func (door *Door) clone() Blocker {
+	return new(Door)
+}
+
+func (door *Door) initialize(room1 Spacer, room2 Spacer) {
+	door.room1, _ = room1.(*Room)
+	door.room2, _ = room2.(*Room)
+}
+
 type DoorNeedingSpell struct {
 	room1 *EnchantedRoom
 	room2 *EnchantedRoom
@@ -45,4 +56,13 @@ func (door *DoorNeedingSpell) otherSideRoom(room Spacer) (Spacer, error) {
 }
 
 func (door *DoorNeedingSpell) enter() {
+}
+
+func (door *DoorNeedingSpell) clone() Blocker {
+	return new(DoorNeedingSpell)
+}
+
+func (door *DoorNeedingSpell) initialize(room1 Spacer, room2 Spacer) {
+	door.room1, _ = room1.(*EnchantedRoom)
+	door.room2, _ = room2.(*EnchantedRoom)
 }

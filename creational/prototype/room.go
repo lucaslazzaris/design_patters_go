@@ -13,6 +13,7 @@ type Spacer interface {
 	enter()
 	getRoomNo() int
 	getSides() [4]MapSite
+	clone(int) Spacer
 }
 
 type Room struct {
@@ -39,6 +40,12 @@ func (room *Room) getSides() [4]MapSite {
 	return room.sides
 }
 
+func (room *Room) clone(roomNo int) Spacer {
+	newRoom := new(Room)
+	newRoom.roomNo = roomNo
+	return newRoom
+}
+
 type EnchantedRoom struct {
 	roomNo int
 	sides [4]MapSite
@@ -62,4 +69,11 @@ func (room *EnchantedRoom) getRoomNo() int {
 
 func (room *EnchantedRoom) getSides() [4]MapSite{
 	return room.sides
+}
+
+func (room *EnchantedRoom) clone(roomNo int) Spacer {
+	newRoom := new(EnchantedRoom)
+	newRoom.roomNo = roomNo
+	newRoom.spell = "Alohomora"
+	return newRoom
 }
