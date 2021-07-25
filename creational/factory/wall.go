@@ -1,9 +1,5 @@
 package main
 
-type WallInterface interface {
-	enter()
-}
-
 type Wall struct {
 }
 
