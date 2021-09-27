@@ -45,7 +45,6 @@ type GlyphFactory struct {
 	characters map[string]Character
 }
 
-// See how to verify existence in go
 func (factory *GlyphFactory) createCharacter(char string) *Character {
 	character, ok := factory.characters[char]
 	if(!ok){
