@@ -10,7 +10,7 @@ const (
 type HelpHandler interface {
 	hasHelp() bool
 	setHandler(HelpHandler)
-	handleHelp()
+	handleHelp() string
 }
 
 type ConcreteHelpHandler struct {
@@ -22,10 +22,11 @@ func (helpHandler *ConcreteHelpHandler) hasHelp() bool {
 	return helpHandler.topic != no_help_topic
 }
 
-func (helpHandler *ConcreteHelpHandler) handleHelp() {
+func (helpHandler *ConcreteHelpHandler) handleHelp() string {
 	if (helpHandler.successor != nil) { 
 		helpHandler.successor.handleHelp()
 	}
+	return ""
 }
 
 // Implements HelpHandler
@@ -39,11 +40,11 @@ func (button *Button) hasHelp() bool {
 	return button.topic != no_help_topic
 }
 
-func (button *Button) handleHelp() {
+func (button *Button) handleHelp() string {
 	if (button.hasHelp()) {
-
+		return "Button help"
 	} else {
-		button.successor.handleHelp()
+		return button.successor.handleHelp()
 	}
 }
 
@@ -57,14 +58,14 @@ type Dialog struct {
 }
 
 func (dialog *Dialog) hasHelp() bool {
-	return dialog.topic != no_help_topic
+	return dialog.topic == print_topic
 }
 
-func (dialog *Dialog) handleHelp() {
+func (dialog *Dialog) handleHelp() string {
 	if (dialog.hasHelp()) {
-
+		return "Dialog help"
 	} else {
-		dialog.successor.handleHelp()
+		return dialog.successor.handleHelp()
 	}
 }
 
@@ -85,11 +86,11 @@ func (application *Application) hasHelp() bool {
 	return application.topic != no_help_topic
 }
 
-func (application *Application) handleHelp() {
+func (application *Application) handleHelp() string {
 	if (application.hasHelp()) {
-
+		return "Application help"
 	} else {
-		application.successor.handleHelp()
+		return application.successor.handleHelp()
 	}
 }
 
