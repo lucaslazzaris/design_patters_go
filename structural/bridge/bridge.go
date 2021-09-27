@@ -21,7 +21,7 @@ type Windower interface {
 	raise()
 	lower()
 	drawLine(Point, Point)
-	drawRect(Point, Point)
+	drawRect(Point, Point) string
 	drawPolygon([]Point)
 	drawText(string, Point)
 
@@ -34,7 +34,7 @@ type WindowImplementer interface {
 	impBottom()
 	impSetExtent(Point)
 	impSetOrigin(Point)
-	deviceRect(Coord, Coord, Coord, Coord)
+	deviceRect(Coord, Coord, Coord, Coord) string
 	deviceText(string, Coord, Coord)
 	deviceBitmap(string, Coord, Coord)
 }
@@ -81,8 +81,8 @@ func(window *ApplicationWindow) drawLine(p1 Point, p2 Point) {
 	fmt.Println("Drawing Line", p1, p2)
 }
 
-func(window *ApplicationWindow) drawRect(point1 Point, point2 Point) {
-	window.windowImp.deviceRect(*point1.coord, *point1.coord, *point2.coord, *point2.coord)
+func(window *ApplicationWindow) drawRect(point1 Point, point2 Point) string {
+	return window.windowImp.deviceRect(*point1.coord, *point1.coord, *point2.coord, *point2.coord)
 }
 
 func(window *ApplicationWindow) drawPolygon(points []Point) {
@@ -127,8 +127,8 @@ func (imp *ApplicationWindowImp) impSetOrigin(point Point) {
 	fmt.Println("Origin on imp", point)
 }
 
-func (imp *ApplicationWindowImp) deviceRect(c1 Coord, c2 Coord, c3 Coord, c4 Coord) {
-	fmt.Println("Rect on imp", c1, c2, c3, c4)
+func (imp *ApplicationWindowImp) deviceRect(c1 Coord, c2 Coord, c3 Coord, c4 Coord) string {
+	return fmt.Sprintf("Rect on imp %.1f %.1f %.1f %.1f", c1.x, c2.y, c3.x, c4.y)
 }
 
 
