@@ -10,8 +10,8 @@ type Event struct {
 }
 
 type Graphic interface {
-	draw(Point)
-	handleMouse(Event)
+	draw(Point) string
+	handleMouse(Event) string
 
 	getExtent() Point
 	
@@ -25,7 +25,27 @@ type Image struct {
 	extent Point
 }
 
-// Implements Graphic
+
+func (image *Image) getExtent() Point {
+	return image.extent
+}
+
+func (image *Image) draw(point Point) string {
+	return "Drawing point on image"
+}
+
+func (image *Image) handleMouse(event Event) string {
+	return "Handling mouse on image"
+}
+
+func (image *Image) save(to string) {
+	fmt.Println("Saving to", to)
+}
+
+func (image *Image) load(from string) {
+	fmt.Println("Loading from", from)
+}
+
 type ImageProxy struct {
 	image *Image
 	extent Point
@@ -54,12 +74,12 @@ func (proxy *ImageProxy) getExtent() Point {
 	return proxy.extent
 }
 
-func (proxy *ImageProxy) draw(point Point) {
-	proxy.image.draw(point)
+func (proxy *ImageProxy) draw(point Point) string {
+	return proxy.image.draw(point) + " Drawing on proxy"
 }
 
-func (proxy *ImageProxy) handleMouse(event Event) {
-	proxy.image.handleMouse(event)
+func (proxy *ImageProxy) handleMouse(event Event) string {
+	return proxy.image.handleMouse(event) + " Handling mouse on proxy"
 }
 
 func (proxy *ImageProxy) save(to string) {
