@@ -3,19 +3,19 @@ package main
 import "fmt"
 
 type VisualComponent interface {
-	draw()
-	resize()
+	draw() string
+	resize() string
 }
 
 type TextView struct {
 }
 
-func (textView *TextView) draw() {
-	fmt.Println("Drawing")
+func (textView *TextView) draw() string {
+	return "Drawing"
 }
 
-func (textView *TextView) resize() {
-	fmt.Println("Resizing")
+func (textView *TextView) resize() string {
+	return "Resizing"
 }
 
 type Decorator interface {
@@ -26,12 +26,12 @@ type Decorate struct {
 	component VisualComponent
 }
 
-func (decorator *Decorate) draw() {
-	decorator.component.draw()
+func (decorator *Decorate) draw() string {
+	return decorator.component.draw()
 }
 
-func (decorator *Decorate) resize() {
-	decorator.component.resize()
+func (decorator *Decorate) resize() string {
+	return decorator.component.resize()
 }
 
 type BorderDecorator struct {
@@ -39,18 +39,19 @@ type BorderDecorator struct {
 	width int
 }
 
-func (decorator *BorderDecorator) draw() {
-	decorator.component.draw()
-	decorator.drawBorder(decorator.width)
+func (decorator *BorderDecorator) draw() string {
+	draw := decorator.component.draw()
+	border := decorator.drawBorder(decorator.width)
+	return draw + border
 }
 
-func (decorator *BorderDecorator) resize() {
-	decorator.component.resize()
+func (decorator *BorderDecorator) resize() string {
+	return decorator.component.resize()
 }
 
-func (decorator *BorderDecorator) drawBorder(width int) { 
+func (decorator *BorderDecorator) drawBorder(width int) string { 
 	// do something
-	fmt.Println("Adding border")
+	return fmt.Sprintf(" Adding border with %d width", width)
 }
 
 type ScrollDecorator struct {
@@ -58,28 +59,17 @@ type ScrollDecorator struct {
 	height int
 }
 
-func (decorator *ScrollDecorator) draw() {
-	decorator.component.draw()
-	decorator.scroll(decorator.height)
+func (decorator *ScrollDecorator) draw() string {
+	draw := decorator.component.draw()
+	scroll := decorator.scroll(decorator.height)
+	return draw + scroll
 }
 
-func (decorator *ScrollDecorator) resize() {
-	decorator.component.resize()
+func (decorator *ScrollDecorator) resize() string {
+	return decorator.component.resize()
 }
 
-func (decorator *ScrollDecorator) scroll(height int) { 
+func (decorator *ScrollDecorator) scroll(height int) string { 
 	// do something
-	fmt.Println("Scrolling")
-}
-
-func main() {
-	// this is a dummy implementation
-
-	textView := new(TextView)
-	scrollDecorator := ScrollDecorator {
-		component: textView,
-	}
-	borderDecorator := BorderDecorator {
-		component: &scrollDecorator,
-	}
+	return fmt.Sprintf(" Scrolling %d pixels", height)
 }
