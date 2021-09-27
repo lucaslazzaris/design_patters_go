@@ -46,7 +46,7 @@ func (openCommand *OpenCommand) execute() {
 }
 
 func (openCommand *OpenCommand) askUser() string {
-	return "User data"
+	return "UserData.pdf"
 }
 
 type PasteCommand struct {
@@ -80,9 +80,5 @@ func (macroCommand *MacroCommand) execute() {
 	for i := 0; i < size; i++ {
 		macroCommand.commands[i].execute()
 	}
-
-}
-
-func main() {
 
 }
