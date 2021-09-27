@@ -5,6 +5,7 @@ type Scanner struct {
 }
 
 func (scanner Scanner) Scan() Token {
+	return Token{}
 }
 
 type Token struct {
@@ -22,15 +23,19 @@ type ProgramNodeBuilder struct {
 }
 
 func (programNodeBuilder ProgramNodeBuilder) newVariable(variableName string) ProgramNode {
+	return ExpressionNode{}
 }
 
 func (programNodeBuilder ProgramNodeBuilder) newAssignment(variable ProgramNode, expression ProgramNode) ProgramNode {
+	return ExpressionNode{}
 }
 
 func (programNodeBuilder ProgramNodeBuilder) newReturnStatement(value ProgramNode) ProgramNode {
+	return ExpressionNode{}
 }
 
 func (programNodeBuilder ProgramNodeBuilder) newCondition(condition ProgramNode, truePart ProgramNode, falsePart ProgramNode) ProgramNode {
+	return ExpressionNode{}
 }
 
 type ProgramNode interface {
@@ -72,7 +77,7 @@ func (codeGenerator CodeGenerator) visit(programNode ProgramNode) {
 type Compiler struct {
 }
 
-func (compiler Compiler) compile(input string, output string) {
+func (compiler Compiler) compile(input string, output string) (string) {
 	scanner := new(Scanner)
 	programNodeBuilder := new(ProgramNodeBuilder)
 	parser := new(Parser)
@@ -82,6 +87,9 @@ func (compiler Compiler) compile(input string, output string) {
 	codeGenerator := CodeGenerator {
 		output: output,
 	}
+	programNodeBuilder.node = ExpressionNode{}
+
 	parseTree := programNodeBuilder.node
 	parseTree.traverse(codeGenerator)
+	return "Testing this component requires a lot of not implemented integrations"
 }
