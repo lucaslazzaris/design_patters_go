@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 type Equipment interface {
 	netPrice() float32
 	accept(EquipmentVisitor)
@@ -76,19 +74,4 @@ func (visitor *PricingVisitor) visitChassis(chassis *Chassis) {
 
 func (visitor *PricingVisitor) visitBus(bus *Bus) {
 	visitor.total += bus.netPrice()
-}
-
-func main() {
-	disk := new(FloppyDisk)
-	chassis := new(Chassis)
-	card := new(Card)
-	bus := new(Bus)
-
-	visitor := PricingVisitor{total: 0}
-	disk.accept(&visitor)
-	chassis.accept(&visitor)
-	card.accept(&visitor)
-	bus.accept(&visitor)
-
-	fmt.Println(visitor.total)
 }
