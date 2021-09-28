@@ -5,8 +5,8 @@ import "fmt"
 type Graphic struct {
 }
 
-func (graphic *Graphic) move(point Point, direction int) {
-	fmt.Println("Moving", point, direction)
+func (graphic *Graphic) move(point Point, direction int) string {
+	return fmt.Sprintf("Moving direction %d", direction)
 }
 
 type Point struct {
@@ -16,16 +16,16 @@ type ConstraintSolver struct {
 	memento *ConstraintSolverMemento
 }
 
-func (constraintSolver ConstraintSolver) createMemento() *ConstraintSolverMemento {
+func (constraintSolver *ConstraintSolver) createMemento() *ConstraintSolverMemento {
 	return &ConstraintSolverMemento{}
 }
 
-func (constraintSolver ConstraintSolver) setMemento(memento *ConstraintSolverMemento) {
+func (constraintSolver *ConstraintSolver) setMemento(memento *ConstraintSolverMemento) {
 	constraintSolver.memento = memento
 }
 
-func (constraintSolver ConstraintSolver) solve() {
-	fmt.Println("Solving")
+func (constraintSolver ConstraintSolver) solve() string {
+	return " Solving"
 }
 
 type ConstraintSolverMemento struct {
@@ -37,20 +37,24 @@ type MoveCommand struct {
 	target *Graphic
 }
 
-func (command MoveCommand) execute() {
+func (command *MoveCommand) execute() string {
 	solver := new(ConstraintSolver)
 	command.state = solver.createMemento()
-	command.target.move(command.delta, 1)
-	solver.solve()
+	moveText := command.target.move(command.delta, 1)
+	return moveText + solver.solve()
 }
 
-func (command MoveCommand) unexecute() {
+func (command *MoveCommand) unexecute() string {
 	solver := new(ConstraintSolver)
-	command.target.move(command.delta, -1)
+	moveText := command.target.move(command.delta, -1)
 	solver.setMemento(command.state)
-	solver.solve()
+	return moveText + solver.solve()
 }
 
-func main() {
-	fmt.Println("Hello world")
+func main() { 
+	state := new(ConstraintSolverMemento)
+	command := MoveCommand{state: state, delta: Point{}, target: new(Graphic)}
+
+	command.execute()
+	command.unexecute()
 }
