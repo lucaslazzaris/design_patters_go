@@ -14,6 +14,7 @@ type TCPState interface {
 	acknowledge(TCPConnector)
 	send(TCPConnector)
 	changeState(TCPConnector, TCPState)
+	getStateName() string
 }
 
 type TCPClosed struct {
@@ -41,6 +42,43 @@ func (state *TCPClosed) send(connector TCPConnector){
 }
 func (state *TCPClosed) changeState(connector TCPConnector, newState TCPState){
 	connector.changeState(newState)
+}
+
+func (state *TCPClosed) getStateName() string {
+	return "TCPClosed"
+}
+
+
+// This is not correct according to the TCP protocol, it's just a dummy to test
+type TCPEstablished struct {
+}
+
+func (state *TCPEstablished) transmit(connector TCPConnector, stream TCPOctetStream){
+	connector.processOctet(stream)
+}
+
+func (state *TCPEstablished) activeOpen(connector TCPConnector){
+	// state.changeState(connector, TCPEstablished)	
+}
+func (state *TCPEstablished) passiveOpen(connector TCPConnector){
+	// state.changeState(connector, TCPListen)	
+}
+func (state *TCPEstablished) close(connector TCPConnector){
+	// state.changeState(connector, TCPListen)	
+}
+func (state *TCPEstablished) synchronize(connector TCPConnector){
+}
+func (state *TCPEstablished) acknowledge(connector TCPConnector){
+}
+func (state *TCPEstablished) send(connector TCPConnector){
+	// state.changeState(connector, TCPEstablished)	
+}
+func (state *TCPEstablished) changeState(connector TCPConnector, newState TCPState){
+	connector.changeState(newState)
+}
+
+func (state *TCPEstablished) getStateName() string {
+	return "TCPEstablished"
 }
 
 type TCPConnector interface {
@@ -92,10 +130,4 @@ func (connection *TCPConnection) send() {
 
 func (connection *TCPConnection) processOctet(stream TCPOctetStream) {
 	fmt.Printf("Processing Octet")
-}
-
-
-func main() {
-	connection := newTCPConnection()
-	fmt.Println(connection)
 }
