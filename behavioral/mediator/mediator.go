@@ -4,7 +4,7 @@ import "fmt"
 
 type DialogDirector interface {
 	showDialog()
-	widgetChanged(Widget)
+	widgetChanged(Widget) string
 	createWidgets()
 }
 
@@ -19,18 +19,19 @@ func (director *FontDialogDirector) showDialog() {
 	fmt.Println("Dialog")
 }
 
-func (director *FontDialogDirector) widgetChanged(widget Widget) {
+func (director *FontDialogDirector) widgetChanged(widget Widget) string {
 	if widget == director.ok {
-		fmt.Println("Ok")
+		return "Ok"
 	} else if widget == director.cancel {
-		fmt.Println("Cancel")
+		return "Cancel"
 	}
 	if widget == director.fontList {
-		fmt.Println("Font List")
+		return "Font List"
 	}
 	if widget == director.fontName {
-		fmt.Println("Font Name")
+		return "Font Name"
 	}
+	return "Not ok"
 }
 
 func (director *FontDialogDirector) createWidgets() {
@@ -41,33 +42,30 @@ func (director *FontDialogDirector) createWidgets() {
 }
 
 type Widget interface {
-	changed()
+	changed() string
 }
 
 type ListBox struct {
 	director DialogDirector
 }
 
-func (listBox *ListBox) changed() {
-	listBox.director.widgetChanged(listBox)
+func (listBox *ListBox) changed() string {
+	return listBox.director.widgetChanged(listBox)
 }
 
 type EntryField struct {
 	director DialogDirector
 }
 
-func (entryField *EntryField) changed() {
-	entryField.director.widgetChanged(entryField)
+func (entryField *EntryField) changed() string {
+	return entryField.director.widgetChanged(entryField)
 }
 
 type Button struct {
 	director DialogDirector
 }
 
-func (button *Button) changed() {
-	button.director.widgetChanged(button)
+func (button *Button) changed() string {
+	return button.director.widgetChanged(button)
 }
 
-func main() {
-	fmt.Println("Hello world")
-}
