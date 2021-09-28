@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 type Context struct {
 	cont map[VariableExp]bool
 }
@@ -100,21 +98,4 @@ func (exp *NotExp) replace(name string, boolExp BooleanExp) BooleanExp {
 	return &NotExp{
 		op: exp.op.replace(name, exp),
 	}
-}
-
-func main() {
-	context := Context{cont: make(map[VariableExp]bool)}
-
-	x := VariableExp{name: "X"}
-	y := VariableExp{name: "Y"}
-
-	expression := OrExp{
-		op1: &AndExp{op1: &y, op2: &x},
-		op2: &AndExp{op1: &y, op2: &NotExp{op: &x}},
-	}
-
-	context.assign(x, false)
-	context.assign(y, true)
-
-	fmt.Println(expression.evaluate(context))
 }
