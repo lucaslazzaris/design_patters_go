@@ -86,23 +86,3 @@ func (iterator *ReverseListIterator) currentItem() interface{} {
 	}
 	return iterator.list.get(iterator.currentIndex)
 }
-
-func main() {
-	list := newList()
-	list.append(0)
-	list.append(1)
-	list.append(2)
-	list.append(3)
-	list.append(4)
-
-	listIterator := newListIterator(list)
-	reverseListIterator := newReverseListIterator(list)
-
-	for listIterator.first(); !listIterator.isDone(); listIterator.next() {
-		fmt.Println(listIterator.currentItem())
-	}
-
-	for reverseListIterator.first(); !reverseListIterator.isDone(); reverseListIterator.next() {
-		fmt.Println(reverseListIterator.currentItem())
-	}
-}
