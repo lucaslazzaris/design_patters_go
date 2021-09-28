@@ -21,12 +21,12 @@ func (view *View) setFocus() string {
 }
 
 func (view *View) resetFocus() string {
-	return "Focus Resetted"
+	return " Focus Resetted"
 }
 
 type ScreenView struct {
 }
 
 func (view *ScreenView) doDisplay() string {
-	return "Display with Screen View"
+	return " Display with Screen View"
 }
