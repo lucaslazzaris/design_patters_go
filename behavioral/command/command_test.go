@@ -17,10 +17,10 @@ func TestCommand(t *testing.T){
 	actualLength := len(application.documents)
 
 	if expectedFileName != actualFileName {
-		t.Errorf("Actual: %s Expected: %s", expectedFileName, actualFileName)
+		t.Errorf("Actual: %s Expected: %s", actualFileName, expectedFileName)
 	}
 
 	if expectedLength != actualLength {
-		t.Errorf("Actual: %d Expected: %d", expectedLength, actualLength)
+		t.Errorf("Actual: %d Expected: %d", actualLength, expectedLength)
 	}
 }
