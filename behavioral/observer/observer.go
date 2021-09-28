@@ -1,22 +1,20 @@
 package main
 
-import "fmt"
-
 type Subject interface {
 	attach(Observer)
 	detach(Observer)
-	notify()
+	notify() string
 }
 
 type Observer interface{
-	update(Subject)
+	update(Subject) string
 }
 
 type ConcreteObserver struct {
 }
 
-func (observer *ConcreteObserver) update(subject Subject) {
-	fmt.Println("Subject:", subject, "updated")
+func (observer *ConcreteObserver) update(subject Subject) string {
+	return "Subject updated "
 }
 
 type ConcreteSubject struct {
@@ -40,31 +38,16 @@ func (subject *ConcreteSubject) detach(observer Observer){
 	subject.observers = append(remainingObservers, subject.observers[index+1:]...)
 }
 
-func (subject *ConcreteSubject) notify() {
+func (subject *ConcreteSubject) notify() string {
+	response := ""
 	for i := 0; i < len(subject.observers); i++ {
-			subject.observers[i].update(subject)
+			response += subject.observers[i].update(subject)
 	}
+	return response
 }
 
 func newSubject() Subject {
 	subject := new(ConcreteSubject)
 	subject.observers = make([]Observer, 0)
 	return subject
-}
-
-func main()  {
-	observer1 := new(ConcreteObserver)
-	observer2 := new(ConcreteObserver)
-
-	subject := newSubject()
-	
-	fmt.Println("Attaching 1")
-	subject.attach(observer1)
-	fmt.Println("Notifying")
-	subject.notify()
-
-	fmt.Println("Attaching 2")
-	subject.attach(observer2)
-	fmt.Println("Notifying")
-	subject.notify()
 }
